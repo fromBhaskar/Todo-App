@@ -1,0 +1,142 @@
+<template>
+
+
+
+  <lightning-card variant="base" icon-name="standard:settings">
+    <div slot="title">
+      Control Multichoice Picklists
+    </div>
+    <div slot="actions">
+
+    </div>
+
+
+    <div>
+      <!-- Card Body  -->
+
+      <lightning-spinner lwc:if={showLoading} alternative-text="Loading"></lightning-spinner>
+
+      <lightning-spinner lwc:if={showSpinner} alternative-text="Loading"></lightning-spinner>
+
+      <div class="slds-grid slds-grid_align-center slds-grid_align-space">
+        <div class="slds-col slds-size_4-of-12"><!-- Code -->
+          <p></p>
+
+
+          <c-searchable-combobox  
+          label={sObjectLabel} 
+          options={sObjects} 
+          value={selectedObjectName}
+            onchange={handleSObjectChange} 
+            name="sObject">
+          </c-searchable-combobox>
+
+        </div>
+        <div class="slds-col slds-size_4-of-12"><!-- Code -->
+
+          <p></p>
+
+
+          <lightning-combobox lwc:if={showMultiChoiceFeilds} name="field " label={multiChoiceFieldLabel}
+            placeholder="Multichoice Fields" options={multiChoiceFields} onchange={handleMultiChoiceFields}
+            value={selectedFieldName} disabled={hasMultiChoiceFields} required></lightning-combobox>
+
+        </div>
+
+        <div class="slds-col slds-size_2-of-12"><!-- Code -->
+          <!-- <lightning-input type="checkbox" label="Enable Child Values" name="enable" checked></lightning-input> -->
+          <div class="slds-m-top_large">
+            <lightning-button lwc:if={showActiveButton} variant="brand" name={buttonLabel} label={buttonLabel}
+              onclick={handleClick} disabled={enableUpdateButton}></lightning-button>
+
+          </div>
+
+        </div>
+      </div>
+
+      <br>
+    </div>
+  </lightning-card>
+  <br>
+
+  <div lwc:if={showDataTable}>
+    <lightning-card icon-name="standard:record" variant="base">
+      <div slot="title">
+        Multi Picklists
+      </div>
+      <div slot="actions">
+
+          <lightning-button  lwc:if={showDeleteAll} variant="base" label=""
+          title="Delete All" onclick={handleDeleteAll}  icon-name="utility:delete" size="medium"
+           icon-position="left"></lightning-button>
+
+             <lightning-input
+               type="search"
+               name="enter-search"
+            onchange={handleSearch}
+              value={searchItem}
+             ></lightning-input>
+
+      </div>
+      <div slot="footer">
+
+      </div>
+      <div>
+        <!-- Card Body  -->
+            <div lwc:if={showDataTabel} style="height:185px">
+
+              <lightning-datatable key-field="id" data={recordsToDisplayCopy} columns={columns}
+              onrowaction={handleRowAction}
+              show-row-number-column
+              hide-checkbox-column
+              onrowselection={handleOnRowSelection}>
+              ></lightning-datatable>
+              
+            </div>
+            <div lwc:else class="slds-align_absolute-center">
+              <p>Sorry, No records available to display...!</p>
+
+            </div>
+
+          <!-- pagination section -->
+         <template lwc:if={showPagination}>
+
+          <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread slds-p-horizontal_medium " style="padding-top: 0.5em;">
+            <!--RECORDS PER PAGE-->
+            <div class="slds-col">
+                <div class="slds-list_inline slds-p-bottom_xx-small">
+                <span class="slds-badge">Page Size:</span>
+                    <div class="slds-select_container">
+                        <select class="slds-select" id="recordsPerPage" onchange={handleRecordsPerPage}>
+                            <template for:each={pageSizeOptions} for:item="option">
+                                <option key={option} value={option}>{option}</option>
+                            </template>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--PAGE NAVIGATION-->
+            <div class="slds-align_absolute-center" style="height:5rem">
+                <lightning-button disabled={bDisableFirst} icon-name="utility:jump_to_left" label="First" class="slds-p-horizontal_x-small" alternative-text="first page" onclick={firstPage}></lightning-button>
+                <lightning-button disabled={bDisableFirst} icon-name="utility:chevronleft" label="Previous" alternative-text="Previous" onclick={previousPage}></lightning-button>
+                &nbsp;
+                <span class="slds-badge">Showing {pageNumber} &nbsp;of&nbsp; {totalPages} &nbsp;&nbsp;Page(s)</span>
+                &nbsp;
+                <lightning-button disabled={bDisableLast} icon-name="utility:chevronright" label="Next" alternative-text="Next" onclick={nextPage} class="slds-p-horizontal_x-small" icon-position="right"></lightning-button>
+                <lightning-button disabled={bDisableLast} icon-name="utility:jump_to_right" label="Last" alternative-text="last page" onclick={lastPage} icon-position="right"></lightning-button>
+            </div>
+            <!--TOTAL RECORDS-->
+            <div class="slds-clearfix">
+                <div class="slds-float_right">
+                    <span class="slds-badge"> Total Records: {totalRecords}</span>
+                </div>
+            </div>
+        </div>
+
+        </template>
+
+      </div>
+    </lightning-card>
+  </div>
+
+</template>

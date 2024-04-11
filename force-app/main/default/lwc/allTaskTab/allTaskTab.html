@@ -1,0 +1,31 @@
+<template>
+
+    <div class="slds-container_center">
+
+      <div class="slds-grid">
+        <div class="slds-col"> 
+          
+          <lightning-card >
+            <ul class="slds-m-around_medium list-view">
+
+              
+              <template for:each={data} for:item="task">
+                  <lightning-card key={task.Id} class="slds-p-around_small " >
+                  <li class="task-item slds-text-align_center slds-text-heading_small task-card-background ">{task.Subject}, {task.Priority}, {task.Status}</li>
+                  
+                </lightning-card>
+              </template>
+
+            </ul>
+          </lightning-card>
+        
+        </div>
+      </div>
+
+    </div>
+
+    
+
+   
+    
+</template>

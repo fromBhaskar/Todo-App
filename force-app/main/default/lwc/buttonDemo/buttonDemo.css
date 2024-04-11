@@ -1,0 +1,22 @@
+.get-button-style{
+    color: magenta;
+    display: block;
+   
+    justify-content: center;
+    align-items: center;
+   
+}
+
+.border {
+    border: 1px solid #e70808; /* 1px width, solid style, black color */
+  }
+
+  .layout-height{
+
+    height: 100vh;
+  }
+
+
+.header{
+    height: 10%;
+}

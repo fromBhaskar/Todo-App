@@ -1,0 +1,85 @@
+<template>
+
+  <div class="slds-container_center layout-height">
+
+    <div class="slds-grid slds-grid_align-space">
+
+      <!-- col1 -->
+      <div class="slds-col slds-size_1-of-3 task-card-height">
+
+        <lightning-card icon-name="standard:task" variant="base" class="my-card-height">
+          <div slot="title">
+            Task
+          </div>
+          <div slot="actions">
+
+          </div>
+          <div slot="footer">
+
+          </div>
+          <div>
+            <!-- Card Body  -->
+
+            <div class="slds-m-top_medium slds-m-bottom_x-large">
+              <h2 class="slds-text-heading_medium  slds-p-around_medium lgc-bg">
+                Create a Todo Task.
+              </h2>
+
+              <!-- Default/basic input  -->
+              <div class="slds-p-around_medium lgc-bg">
+                <lightning-input type="text" value={titleValue} label="Title" onchange={onChangeTitle}
+                                 required></lightning-input>
+
+                <lightning-select name="Status" label="Whats the Status!"
+                                  value={statusValue} options={options} onchange={handleChange}
+                                  required>
+                </lightning-select>
+
+                <lightning-select name="Priority" label="Priority!"
+                                  value={taskPriority} options={priorityOptions} onchange={onPriorityChange}
+                                  required>
+                </lightning-select>
+
+                <lightning-record-picker value={accountValue} label="Assign To a Accounts"
+                                         placeholder="Search Accounts..." object-api-name="Account"
+                                         onchange={onChangeAccount}>
+                </lightning-record-picker>
+
+                <lightning-record-picker value={contactValue} label="Assign To a Contacts"
+                                         placeholder="Search Contacts..." object-api-name="Contact"
+                                         onchange={onChangeContact}>
+                </lightning-record-picker>
+
+
+                <div class="slds-p-around_medium lgc-bg save-button">
+                  <lightning-button-icon icon-name="utility:send" variant="brand" alternative-text="Save"
+                                         class="slds-m-left_xx-small" title="Save"
+                                         onclick={onSaveTaskBtn}></lightning-button-icon>
+                </div>
+                <br>
+
+                <p>{allData}</p>
+              </div>
+
+              <!-- Pick list -->
+
+
+            </div>
+
+
+          </div>
+        </lightning-card>
+
+
+      </div>
+
+      <!-- <div class="slds-col slds-size_2-of-3 slds-p-left_medium  ">
+        <c-all-task-tab></c-all-task-tab>
+      </div> -->
+    </div>
+
+
+  </div>
+
+
+</template>
