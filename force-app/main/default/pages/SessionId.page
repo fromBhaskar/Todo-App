@@ -1,3 +1,0 @@
-<apex:page >
-    <div id="SessionId">{!GETSESSIONID()}</div>
-</apex:page>
